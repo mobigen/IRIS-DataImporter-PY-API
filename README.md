@@ -12,6 +12,9 @@ pip3 install git+https://github.com/mobigen/IRIS-DataImporter-PY-API.git
 ```
 
 ## 사용법
+```
+python setup.py develop
+```
 
 ```
     import os
@@ -54,14 +57,24 @@ pip3 install git+https://github.com/mobigen/IRIS-DataImporter-PY-API.git
     ## column_type_convert
     option.set_col_type_convert(column_name, column_type)
 
-    # target Table 설정 방법
+
+    load_type = 'overwrite' 
+
+    # target_db 설정 방법 
+    target_db: {
+    	'connector_name': '{{connector_name}}',
+	    'datasource_name':'{{datasource_name}}'
+    }
+
+    # target Table / DataModelName 설정 방법 // TODO
     target = {
+    	'data_model_name':'{{data_model_name}}',
         'table_name':'{{table_name}}'
-    } 
+    }
 
     # File Upload
     fields, results = conn.upload(file_path, file_info.get_seperator(), option.get_option())
 
-    # Load to DB connector_name, target_table, overwrite
-    res = conn.load(connector_name, target, False)
+    # Load to DB target_db, target_table, overwrite
+    res = conn.load(target_db, target, "overwrite") 
 ```
